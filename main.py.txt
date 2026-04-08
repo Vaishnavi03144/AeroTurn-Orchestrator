@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from env import AeroTurnEnv
+from env import ATCEnv
 from models import Action
 import os
 
@@ -7,7 +7,7 @@ import os
 app = FastAPI()
 
 # Initialize your environment logic
-env = AeroTurnEnv()
+env = ATCEnv
 
 @app.get("/")
 def health_check():
