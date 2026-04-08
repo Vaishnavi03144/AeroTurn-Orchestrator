@@ -1,0 +1,4 @@
+[[package]]
+name = "aeroturn-orchestrator"
+version = "0.1.0"
+source = { virtual = "." }
