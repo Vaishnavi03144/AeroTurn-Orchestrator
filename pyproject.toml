@@ -1,0 +1,14 @@
+[project]
+name = "aeroturn-orchestrator"
+version = "0.1.0"
+description = "AeroTurn Orchestrator for Air Traffic Control simulation"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "requests"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
