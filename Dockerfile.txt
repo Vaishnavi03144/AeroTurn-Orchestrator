@@ -1,0 +1,25 @@
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of your application code into the container
+COPY . .
+
+# Expose port 7860 (This is the mandatory port for Hugging Face Spaces)
+EXPOSE 7860
+
+# Define environment variables (Defaults - these will be overridden by your HF Secrets)
+ENV API_BASE_URL=https://router.huggingface.co/v1
+ENV MODEL_NAME=meta-llama/Llama-3-70b-instruct
+
+# Command to run the FastAPI server
+# This ensures that Step 1 (The /reset ping) will pass.
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]

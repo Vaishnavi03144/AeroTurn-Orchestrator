@@ -1,0 +1,48 @@
+from fastapi import FastAPI
+from env import AeroTurnEnv
+from models import Action
+import os
+
+# Create the FastAPI app
+app = FastAPI()
+
+# Initialize your environment logic
+env = AeroTurnEnv()
+
+@app.get("/")
+def health_check():
+    """Confirms the space is online for the validator."""
+    return {"status": "online", "system": "AeroTurn-Orchestrator"}
+
+@app.post("/reset")
+def reset(task_id: int = 1):
+    """
+    MANDATORY: The validator script calls this specific endpoint.
+    It must return the initial observation from your environment.
+    """
+    observation = env.reset(task_id=task_id)
+    return observation
+
+@app.post("/step")
+def step(action: Action):
+    """
+    MANDATORY: The validator script uses this to test actions 
+    defined in your models.py.
+    """
+    obs, reward, done, info = env.step(action)
+    return {
+        "observation": obs, 
+        "reward": reward, 
+        "done": done, 
+        "info": info
+    }
+
+@app.get("/state")
+def get_state():
+    """Returns the current state of the airport environment."""
+    return env._obs()
+
+if __name__ == "__main__":
+    import uvicorn
+    # Port 7860 is the mandatory port for Hugging Face Spaces
+    uvicorn.run(app, host="0.0.0.0", port=7860)

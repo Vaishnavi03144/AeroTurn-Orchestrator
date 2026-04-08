@@ -1,0 +1,18 @@
+from pydantic import BaseModel
+from typing import List, Optional
+
+class Aircraft(BaseModel):
+    callsign: str
+    altitude: int
+    heading: int
+
+class Observation(BaseModel):
+    radar: List[Aircraft]
+    task_description: str
+
+class Action(BaseModel):
+    callsign: str
+    target_altitude: int
+
+class Reward(BaseModel):
+    score: float # Must be 0.0 to 1.0

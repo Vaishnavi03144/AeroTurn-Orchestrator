@@ -1,0 +1,11 @@
+version: "1.0"
+name: "AeroTurn-Orchestrator"
+benchmark: "aviation-ground-ops"
+entry_point: "inference.py"
+tasks:
+  - id: 1
+    name: "Easy: Single Plane Docking"
+  - id: 2
+    name: "Medium: Resource Bottleneck"
+  - id: 3
+    name: "Hard: Emergency Turnaround"
