@@ -15,12 +15,13 @@ def health_check():
     return {"status": "online", "system": "AeroTurn-Orchestrator"}
 
 @app.post("/reset")
-def reset(task_id: int = 1):
+def reset():
     """
     MANDATORY: The validator script calls this specific endpoint.
     It must return the initial observation from your environment.
     """
-    observation = env.reset(task_id=task_id)
+    # Removed task_id because your ATCEnv.reset() takes no arguments
+    observation = env.reset() 
     return observation
 
 @app.post("/step")
