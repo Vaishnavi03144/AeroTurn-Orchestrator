@@ -1,13 +1,19 @@
 [project]
 name = "aeroturn-orchestrator"
 version = "0.1.0"
-description = "AeroTurn Orchestrator for Air Traffic Control simulation"
+description = "ATC Orchestrator"
+readme = "README.md"
+requires-python = ">=3.10"
 dependencies = [
     "fastapi",
     "uvicorn",
     "pydantic",
-    "requests"
+    "requests",
+    "openenv-core>=0.2.0"
 ]
+
+[project.scripts]
+server = "server.app:main"
 
 [build-system]
 requires = ["setuptools", "wheel"]
