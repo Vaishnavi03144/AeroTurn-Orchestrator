@@ -7,14 +7,14 @@ Since you are an engineering student and developer, having a clean README shows 
 AeroTurn-Orchestrator ✈️
 AeroTurn-Orchestrator is a robust Air Traffic Control (ATC) simulation and orchestration system built to handle real-time aircraft separation and altitude management. This project serves as the backend intelligence for automated flight coordination.
 
-🚀 Project Overview
+**🚀 Project Overview**
 The orchestrator provides a standardized environment for managing aircraft telemetry. It utilizes a FastAPI backend to expose an environment where an agent (human or AI) can observe radar data and execute maneuvers to resolve airspace conflicts.
 
-🏗️ Technical Architecture
+**🏗️ Technical Architecture**
 Engine: Custom Python-based simulation environment (ATCEnv).
 
-API Framework: FastAPI for high-performance, asynchronous communication.
+**API Framework:** FastAPI for high-performance, asynchronous communication.
 
-Validation: Pydantic models for strict data integrity on aircraft states and actions.
+**Validation:** Pydantic models for strict data integrity on aircraft states and actions.
 
-Deployment: Containerized using Docker and hosted on Hugging Face Spaces.
+**Deployment:** Containerized using Docker and hosted on Hugging Face Spaces.
