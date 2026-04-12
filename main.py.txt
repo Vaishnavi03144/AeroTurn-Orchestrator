@@ -12,20 +12,18 @@ async def read_root():
 
 @app.post("/reset")
 async def reset(request: Request):
-    # Capture absolutely everything sent in the request body
     try:
         body = await request.json()
-    extra_params = body if isinstance(body, dict) else {}
-    except Exception:
-        extra_params = {}
+    except:
+        body = {}
     
-    # Force pass the params into the reset function
-    return env.reset(**extra_params)
+    # We must AWAIT the async reset call now
+    return await env.reset(**body)
 
 @app.post("/step")
 async def step(action: Action):
-    # Standard step call
-    obs, reward, done, info = env.step(action)
+    # We must AWAIT the async step call now
+    obs, reward, done, info = await env.step(action)
     return {
         "observation": obs,
         "reward": reward,
