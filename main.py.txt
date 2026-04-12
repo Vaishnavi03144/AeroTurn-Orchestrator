@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from env import AeroTurnEnv
 from models import Action
 import uvicorn
+import os
 
 app = FastAPI()
 env = AeroTurnEnv()
@@ -16,20 +17,13 @@ async def reset(request: Request):
         body = await request.json()
     except:
         body = {}
-    
-    # We must AWAIT the async reset call now
     return await env.reset(**body)
 
 @app.post("/step")
 async def step(action: Action):
-    # We must AWAIT the async step call now
     obs, reward, done, info = await env.step(action)
-    return {
-        "observation": obs,
-        "reward": reward,
-        "done": done,
-        "info": info
-    }
+    return {"observation": obs, "reward": reward, "done": done, "info": info}
 
 if __name__ == "__main__":
+    # Hugging Face REQUIRES port 7860. This forces it.
     uvicorn.run(app, host="0.0.0.0", port=7860)
