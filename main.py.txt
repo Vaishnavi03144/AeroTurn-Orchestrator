@@ -1,20 +1,30 @@
-from fastapi import FastAPI
-from env import AeroTurnEnv  # Fixed name
+from fastapi import FastAPI, Request
+from env import AeroTurnEnv
 from models import Action
+import uvicorn
 
 app = FastAPI()
-env = AeroTurnEnv()  # Fixed name
+env = AeroTurnEnv()
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"status": "AeroTurn Orchestrator is Live"}
 
 @app.post("/reset")
-def reset():
-    return env.reset()
+async def reset(request: Request):
+    # Capture absolutely everything sent in the request body
+    try:
+        body = await request.json()
+    extra_params = body if isinstance(body, dict) else {}
+    except Exception:
+        extra_params = {}
+    
+    # Force pass the params into the reset function
+    return env.reset(**extra_params)
 
 @app.post("/step")
-def step(action: Action):
+async def step(action: Action):
+    # Standard step call
     obs, reward, done, info = env.step(action)
     return {
         "observation": obs,
@@ -22,3 +32,6 @@ def step(action: Action):
         "done": done,
         "info": info
     }
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=7860)
